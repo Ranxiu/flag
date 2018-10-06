@@ -1,10 +1,9 @@
 <?php
-
+ini_set('session.gc_maxlifetime', 60*60*24);   // 设置 SESSION 10分钟过期
+session_start();
 define('ROOT',__DIR__.'/../');
-
 //引入函数文件
 require(ROOT.'libs/functions.php');
-
 //自动加载函数
 function autoClass($class){
 
@@ -13,10 +12,6 @@ function autoClass($class){
 }
 //注册加载函数
 spl_autoload_register('autoClass');
-
-
-
-
 $controller = '\controllers\IndexController';
 $action = 'index';
 

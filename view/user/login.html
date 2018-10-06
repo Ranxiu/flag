@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/js/laydate/theme/default/laydate.css">
+    <style>
+        
+            @media (min-width:376px){
+                body{
+                    width: 100%;
+                    height: 100%;
+                    /* background-color: rgb(219, 238, 245); */
+                    background-image: url('/images/bg_6.jpg');
+                    background-size:100%;
+                }
+                
+                .box{
+                    width:50%;
+                    margin:100px auto;
+                    padding-top: 20px;
+                    text-align: center;
+                    /* background-color: rgb(196, 233, 248); */
+                    box-shadow:0px 0px 50px #fff;
+                }
+                .box h1{
+                    text-align: center;
+                    color:rgb(112, 22, 22);
+                }
+                .box input[type='submit']{
+                    width: 20%;
+                    height: 50px;
+                    font-size:1.5em;
+                    border-radius: 25px;
+                    /* background-color: rgb(155, 179, 101); */
+                    background-color: skyblue;
+                    margin-bottom: 20px;
+                }
+                .box input[type='text'],.box input[type="password"]{
+                    outline: none;
+                    width: 50%;
+                    height: 30px;
+                    font-size:1.5em;
+                    border-radius: 25px;
+                    border:1px solid #999;
+                    padding-left: 15px;
+                }
+                
+            }
+            @media (max-width:375px){
+                body{
+                    background-color: rgb(196, 233, 248);
+                    background-image: url('/images/bg_9.jpg');
+                    background-size:100%;
+                    background-position:top;
+                }
+                .box{
+                    width: 100%;
+                    text-align: center;
+                    padding-top: 50px;
+                    /* background-color: rgb(192, 183, 183); */
+                }
+                .box h1{
+                    text-align: center;
+                    color:rgb(112, 22, 22);
+                }
+                .box input[type='text'],.box input[type="password"]{
+                    outline: none;
+                    width: 50%;
+                    height: 30px;
+                    font-size:1.5em;
+                    border-radius: 25px;
+                    border:1px solid #999;
+                    padding-left: 15px;
+                }
+                .box input[type='submit']{
+                    width: 30%;
+                    height: 50px;
+                    font-size:1.5em;
+                    border-radius: 25px;
+                    /* background-color: rgb(155, 179, 101); */
+                    background-color: skyblue;
+                }
+            }
+            button,input[type='button'],input[type='submit']{
+                margin: 0;
+                padding: 0;
+                outline: none;
+            }
+        </style>
+</head>
+<body>
+    <div class="box">
+        <h1>欢迎登录</h1>
+        <form action="/user/do_login" method="post">
+            用户名：<input type="text" name="username">
+            <br>
+            <br>
+            <br>
+            密&nbsp;&nbsp;&nbsp;码：<input type="password" name="password">
+            <br>
+            <br>
+            <br>
+            <input type="submit" value="登录">
+        </form>
+    </div>
+</body>
+</html>
+<script src="/js/jquery.min.js"></script>
