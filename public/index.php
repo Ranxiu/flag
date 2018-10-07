@@ -1,5 +1,5 @@
 <?php
-ini_set('session.gc_maxlifetime', 60*60*24);   // 设置 SESSION 10分钟过期
+// ini_set('session.gc_maxlifetime', 60*60*24);   // 设置 SESSION 10分钟过期
 session_start();
 define('ROOT',__DIR__.'/../');
 //引入函数文件

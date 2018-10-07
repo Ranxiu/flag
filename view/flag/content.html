@@ -186,8 +186,8 @@
                     color:#fff;
                     text-align:center;
                     position: absolute;
-                    left:40px;
-                    top:40px;
+                    left:20px;
+                    top:30px;
                     font-size:1em;
                 }
                 .box input[type='submit']{
@@ -211,7 +211,9 @@
 <body>
     <div class="box">
         <button onclick="index()" class='index'>首 页</button>
-        <h1><?=$data['username']==$_SESSION['username']?'我':$data['username'];?>的第<?=$data['num']?>个flag</h1>
+        <h1><?=isset($_SESSION['username'])?
+            $data['username']==$_SESSION['username']?'我':$data['username']:$data['username'];?>的第<?=$data['num']?>个flag</h1>
+        <!-- <h1><?=$data['username']==$_SESSION['username']?'我':$data['username'];?>的第<?=$data['num']?>个flag</h1> -->
         <ul>
             <li>
                 <?php if($data['status']=='y'&&$data['updated_at']<=$data['end_time']): ?>

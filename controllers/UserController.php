@@ -5,6 +5,12 @@ class UserController{
     public function login(){
        view('user/login'); 
     }
+    public function loginout(){
+        unset($_SESSION['username']);
+        unset($_SESSION['user_id']);
+       
+        header('Location:/index/index');
+     }
     public function do_login(){
         $username=$_POST['username'];
         $password=$_POST['password'];
