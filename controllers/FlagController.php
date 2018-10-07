@@ -57,4 +57,13 @@ class FlagController{
             'data'=>$data,
         ]);
     }
+
+    public function getAll(){
+        $flag=new Flag;
+        $data = $flag->getAll();
+        // var_dump($data);
+         
+        echo  $data;
+        
+    }
 }

@@ -33,4 +33,14 @@ class Flag extends Model{
                 ]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+
+    public function getAll(){
+
+        $stmt=$this->_db->prepare("select f.id,f.user_id,f.start_time,f.content,f.end_time,f.status,f.created_at,f.updated_at,u.username from flags f LEFT JOIN users u on f.user_id = u.id ");
+        $stmt->execute([
+            
+        ]);
+        return json_encode($stmt->fetchAll(\PDO::FETCH_ASSOC));
+        
+    }
 }
