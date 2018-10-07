@@ -9,7 +9,7 @@
 <style>
     .el-header,
     .el-footer {
-        background-color: #409eff;
+        background-color: #fff;
         color: #fff;
         text-align: center;
         line-height: 60px;
@@ -47,8 +47,17 @@
         margin-bottom: 0;
         width: 50%;
     }
-    el-table-column {
-        font-size: 1.2rem;
+    .el-icon el-icon-arrow-right {
+        width:30px;
+        height:30px;
+    }
+    .el-icon-arrow-right:before {
+        width:30px;
+        height:30px;
+    }
+    h4>a {
+        margin:0 0;
+        font-size: 2rem;
     }
 </style>
 
@@ -57,23 +66,26 @@
     <div id="app">
         <el-container>
             <el-header>
-                常立flag
-               
+                
+                <el-button size="medium"  disabled width="100">flag列表</el-button>
 
             </el-header>
            
             <h4> 
                 <?php if(isset($_SESSION['username'])): ?>
                 欢迎您！<?php echo $_SESSION['username']?>
-                <a href="/flag/create">立flag</a>
-                <a href="/user/loginout">退出</a>
+                <a href="/flag/create"><el-button size="mini" type="primary">立flag</el-button></a>
+                <a href="/user/loginout"><el-button size="mini" type="danger">退出</el-button></a>
                 <?php else: ?>
-                <a href="/user/login"> 登录</a> 
+                <a href="/user/login"> <el-button size="mini" type="success">登录</el-button></a> 
                 <?php  endif;?>
             </h4>
             <el-main>
 
                 <div id="app">
+                    <el-row>
+                    <el-col :span="24"><div class="grid-content bg-purple-dark">
+                              
                     <template>
                         <el-table :data="tableData5" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
                             <el-table-column label="发起日期" width="220" sortable prop="start_time"  align="center">
@@ -116,15 +128,18 @@
                                     
                                 </template>
                             </el-table-column>
-                            <el-table-column prop="status"  align="center" label="完成状态" width="100" :filters="[{ text: '已完成', value: '已完成' }, { text: '未完成', value: '未完成' }]" :filter-method="filterTag" filter-placement="bottom-end">
+                            <el-table-column prop="status"  align="center" label="完成状态"  width="100" :filters="[{ text: '已完成', value: '已完成' }, { text: '未完成', value: '未完成' }]" :filter-method="filterTag" filter-placement="bottom-end">
                                 <template slot-scope="scope">
                                     <el-tag :type="scope.row.status === '未完成' ? 'primary' : 'success'" disable-transitions>{{scope.row.status}}</el-tag>
                                 </template>
                             </el-table-column>
                         </el-table>
                     </template>
+                    </div>
+                    </el-col>
+                    </el-row>
                 </div>
-                <div class="thumb"></div>
+                
 
             </el-main>
         </el-container>
