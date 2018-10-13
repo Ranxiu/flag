@@ -58,12 +58,50 @@ class FlagController{
         ]);
     }
 
-    public function getAll(){
+    public function getAlls(){
         $flag=new Flag;
-        $data = $flag->getAll();
+        $data = $flag->getAlls();
         // var_dump($data);
          
         echo  $data;
+    }
+
+    public function getAll(){
+        $flag = new Flag;
+
+        $username = $_POST["username"];
+
+
+        $options = [
+            'fields' => 'f.id,f.user_id,f.start_time,f.content,f.end_time,f.status,f.created_at,f.updated_at,u.username',
+            'join' => 'f LEFT JOIN users u on f.user_id = u.id',
+            'where'=> "u.username = '{$username}'",
+            'order_by' => 'updated_at',
+        ];
+
         
+
+        $data = $flag->findAll($options);
+        
+        echo json_encode($data);
+    }
+
+    public function timeContent(){
+
+        $flag = new Flag;
+
+        $nowtime = $_POST["nowtime"];
+
+        $options = [
+            'fields' => 'f.id,f.user_id,f.start_time,f.content,f.end_time,f.status,f.created_at,f.updated_at,u.username',
+            'join' => 'f LEFT JOIN users u on f.user_id = u.id',
+            'where'=> "f.created_at like '%{$nowtime}%'",
+            'order_by' => 'updated_at',
+        ];
+
+        $data = $flag->findAll($options);
+
+        echo json_encode($data);
+
     }
 }

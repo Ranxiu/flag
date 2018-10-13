@@ -3,163 +3,109 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- import CSS -->
-    <!-- <link rel="stylesheet" href="/element-ui/index.css"> -->
+    <link rel="stylesheet" href="/element-ui/index.css">
     <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
+    <link rel="stylesheet" href="/element-ui/main.css">
 </head>
-<style>
-    .el-header,
-    .el-footer {
-        background-color: #fff;
-        color: #fff;
-        text-align: center;
-        line-height: 60px;
-    }
-
-    .el-main {
-        background-color: #F2F6FC;
-        color: #333;
-        text-align: center;
-        padding-left: 5px;
-
-    }
-
-    .el-table {
-        float: left;
-        margin-left: 10px;
-    }
-
-    body>.el-container {
-        margin-bottom: 40px;
-
-    }
-
-    .demo-table-expand {
-        font-size: 0;
-    }
-
-    .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-
-    .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 50%;
-    }
-    .el-icon el-icon-arrow-right {
-        width:30px;
-        height:30px;
-    }
-    .el-icon-arrow-right:before {
-        width:30px;
-        height:30px;
-    }
-    h4>a {
-        margin:0 0;
-        font-size: 2rem;
-    }
-    .block{
-        margin-left:10px;
-        margin-bottom:10px;
-        float: left;
-    }
-   
-</style>
-
 
 <body>
     <div id="app">
         <el-container>
-            <el-header>
-                
-                <el-button size="medium"  disabled width="100">flag列表</el-button>
-
+            <el-header> 
+                <el-button size="medium" disabled width="100">flag列表</el-button>
             </el-header>
-           
-            <h4> 
-                <?php if(isset($_SESSION['username'])): ?>
-                欢迎您！<?php echo $_SESSION['username']?>
+            <h2 id="time">
+                    <el-button size="medium" type="danger" disabled width="200">毕业倒计时: {{newdate}} </el-button>
+            </h2>
+            
+            <h4>
+                <?php if(isset($_SESSION['username'])): ?> 欢迎您！
+                <?php echo $_SESSION['username']?>
                 <a href="/flag/create"><el-button size="mini" type="primary">立flag</el-button></a>
                 <a href="/user/loginout"><el-button size="mini" type="danger">退出</el-button></a>
                 <?php else: ?>
-                <a href="/user/login"> <el-button size="mini" type="success">登录</el-button></a> 
+                <a href="/user/login"> <el-button size="mini" type="success">登录</el-button></a>
                 <?php  endif;?>
             </h4>
             <el-main>
-
                 <div id="app">
-                    <el-row>
-                    <el-col :span="24"><div class="grid-content bg-purple-dark">
-                    <template>
-                            <div class="block">
-                                <span class="demonstration">起始日期</span>
-                                <el-date-picker v-model="startDate" type="date" placeholder="选择日期" :picker-options="pickerOptionsStart" @change="changeEnd">
-                                </el-date-picker>
-                            </div>
+                    <el-row :gutter="10">
+                        <template>
+                            <el-col :xs="24" :sm="12" :md="6" :lg="5" :xl="4">
+                                <div class="grid-content bg-purple">
+                                    <div class="block">
+                                        <span class="demonstration">带快捷选项</span>
+                                        <el-date-picker v-model="value" align="right"  
+                                        type="date"  
+                                        placeholder="选择日期" 
+                                        :picker-options="pickerOptions1"
+                                        @change="logTimeChange"
+                                        >
+                                        </el-date-picker>
+                                      </div>
+                                </div>
+                            </el-col>
                             
-                            <div class="block">
-                                <span class="demonstration">截止日期</span>
-                                <el-date-picker v-model="endDate" type="date" placeholder="选择日期" :picker-options="pickerOptionsEnd" @change="changeStart">
-                                </el-date-picker>
-                            </div>
-                    </template>              
-                    <template>
-                        <el-table :data="tableData5" style="width: 100%" :default-sort="{prop: 'start_time', order: 'descending'}">
-                            <el-table-column label="发起日期" width="220" sortable prop="start_time"  align="center">
-                                <template slot-scope="props">
-                                    <i class="el-icon-time"></i>
-                                    <span style="margin-left: 10px">{{ props.row.start_time }}</span>
-                                </template>
-                            </el-table-column>
-                            <el-table-column type="expand"  align="center">
-                                <template slot-scope="props">
-                                    <el-form label-position="left" inline class="demo-table-expand">
-                                        <el-form-item label="姓名">
-                                            <span>{{ props.row.username }}</span>
-                                        </el-form-item>
-                                       
-                                        <el-form-item label="开始时间">
-                                            <span>{{ props.row.start_time }}</span>
-                                        </el-form-item>
-                                        <el-form-item label="结束时间">
-                                            <span>{{ props.row.end_time }}</span>
-                                        </el-form-item>
-                                       
-                                        <el-form-item label="学习目标">
-                                            <span>{{ props.row.content }}</span>
-                                        </el-form-item>
-                                    </el-form>
-                                </template>
-                            </el-table-column>
-                            <!-- <el-table-column label="截止日期" prop="end_time"  align="center">
-                            </el-table-column> -->
-                            <el-table-column label="姓名" prop="username"  align="center">
-                            </el-table-column>
-                            <el-table-column label="学习目标" prop="content"  align="center">
-                            </el-table-column>
-                            <el-table-column label="操作"  align="center">
-                                <template slot-scope="scope">
-                                    <el-button size="mini" type="primary" @click="handleSee(scope.$index, scope.row.id)">查看</el-button>
-                                    <el-button size="mini" type="warning" v-if="scope.row.user_id==<?php echo isset($_SESSION['user_id'])?$_SESSION['user_id']:-1?>&&scope.row.status=='未完成'"  @click="handleEdit(scope.$index, scope.row.id)">编辑</el-button>
-                                    
-                                    
-                                </template>
-                            </el-table-column>
-                            <el-table-column prop="status"  align="center" label="完成状态"  width="100" :filters="[{ text: '已完成', value: '已完成' }, { text: '未完成', value: '未完成' }]" :filter-method="filterTag" filter-placement="bottom-end">
-                                <template slot-scope="scope">
-                                    <el-tag :type="scope.row.status === '未完成' ? 'primary' : 'success'" disable-transitions>{{scope.row.status}}</el-tag>
-                                </template>
-                            </el-table-column>
-                        </el-table>
-                    </template>
-                    </div>
-                    </el-col>
+                            <el-col :xs="8" :sm="8" :md="4" :lg="4" :xl="4">
+                                <div class="grid-content bg-purple">
+                                    <div class="block" id="tiaojian">
+                                        <el-button size="mini" @click.native="getButton('张亚泽')" type="primary">张亚泽</el-button>
+                                        <el-button size="mini" @click.native="getButton('齐福伦')" type="primary">齐福伦</el-button>
+                                        <el-button size="mini" @click.native="getButton('石学文')" type="primary">石学文</el-button>
+                                        <el-button size="mini" @click.native="getButton('冉江华')" type="primary">冉江华</el-button>
+                                        <el-button size="mini" @click.native="getButton('彭文双')" type="primary">彭文双</el-button>
+                                        <el-button size="mini" @click.native="getButton('芦奕明')" type="primary">芦奕明</el-button>
+                                    </div>
+                                </div>
+                            </el-col>
+                           
+                        </template>
+
+                        <template>  
+                            <el-table :data="tableData5.slice((currpage - 1) * pagesize, currpage * pagesize)" style="width: 100%" :default-sort="{prop: 'start_time', order: 'descending'}"> 
+                                <el-table-column label="姓名" prop="username" align="center" > 
+                                    <template slot-scope="scope">
+                                        <el-tag  disable-transitions>{{scope.row.username}}</el-tag>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="学习目标" prop="content" align="center">
+                                </el-table-column>
+                                <el-table-column label="操作" align="center">
+                                    <template slot-scope="scope">
+                                        <el-button size="mini" type="primary" @click="handleSee(scope.$index, scope.row.id)">查看</el-button>
+                                        <el-button size="mini" type="warning" v-if="scope.row.user_id==<?php echo isset($_SESSION['user_id'])?$_SESSION['user_id']:-1?>&&scope.row.status=='未完成'"
+                                            @click="handleEdit(scope.$index, scope.row.id)">编辑</el-button>
+
+
+                                    </template>
+                                </el-table-column>
+                                <el-table-column prop="status" align="center" label="完成状态" width="100" :filters="[{ text: '已完成', value: '已完成' }, { text: '未完成', value: '未完成' }]"
+                                    :filter-method="filterTag" filter-placement="bottom-end">
+                                    <template slot-scope="scope">
+                                        <el-tag :type="scope.row.status === '未完成' ? 'danger' : 'success'" disable-transitions>{{scope.row.status}}</el-tag>
+                                    </template>
+                                </el-table-column>
+                                
+                            </el-table>
+                            
+                        </template>
+                        
                     </el-row>
+                    
                 </div>
-                
+                <el-pagination background 
+                    layout="prev, pager, next, sizes, total, jumper"
+                    :page-sizes="[5, 10, 15, 20]"//每页展示条选择组件
+                    :page-size="pagesize"//每页展示条
+                    :total="tableData5.length"
+                    @current-change="handleCurrentChange"  // currentPage改变时会触发
+                    @size-change="handleSizeChange" //pagesize改变时触发
+                    >
+                </el-pagination>
 
             </el-main>
         </el-container>
@@ -171,42 +117,65 @@
 <!-- <script src="/element-ui/index.js"></script> -->
 
 <script src="/js/jquery.min.js"></script>
+<!-- import JavaScript -->
+<script src="/element-ui/index.js"></script>
 <!-- 引入组件库 -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
 
 <script>
 
     var Main = {
-        
         data() {
             return {
                 tableData5: [],
                 pickerOptionsStart: {},
-                pickerOptionsEnd:{},
+                pickerOptionsEnd: {},
                 startDate: '',
                 endDate: '',
+                newdate:'',
+                pagesize:10,
+                currpage: 1,
+                pickerOptions1: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+                shortcuts: [{
+                    text: '今天',
+                    onClick(picker) {
+                    picker.$emit('pick', new Date());
+                    }
+                }, {
+                    text: '昨天',
+                    onClick(picker) {
+                    const date = new Date();
+                    date.setTime(date.getTime() - 3600 * 1000 * 24);
+                    picker.$emit('pick', date);
+                    }
+                }]
+                },
+                value: '',
+               
             }
         },
-        created:function() {
-            
+        created: function () {
             var data = [];
             let _this = this;
+            let starttime = new Date();
             $.ajax({
-                type:"get",
-                url:"/flag/getAll",
+                type: "get",
+                url: "/flag/getAlls",
                 // contentType: "application/json; charset=utf-8",//(可以)
                 dataType: "json",
-                success: function (res) {                         
-                    console.log(res);
+                success: function (res) {
+                    // console.log(res);
                     for (let i = 0; i < res.length; i++) {
-               
                         var obj = {}
                         obj.id = res[i].id
                         obj.user_id = res[i].user_id
                         obj.content = res[i].content
                         obj.start_time = res[i].start_time
                         obj.end_time = res[i].end_time
-                        obj.status = res[i].status=='y'?'已完成':'未完成'
+                        obj.status = res[i].status == 'y' ? '已完成' : '未完成'
                         obj.created_at = res[i].created_at
                         obj.updated_at = res[i].updated_at
                         obj.num = res[i].num
@@ -214,19 +183,58 @@
                         data[i] = obj
                     }
                     _this.tableData5 = data
+                    console.log('加载时间'+(new Date() - starttime)+'毫秒');
                 }
             })
 
-            
+        },
+        mounted: function(){
+
+            setInterval(this.getTime, 1000);
+            // console.log('123');
+
         },
         methods: {
+            getButton(val){
+
+                var data = [];
+                let _this = this;
+                let starttime = new Date();
+
+                $.ajax({
+                    type: "post",
+                    url: "/flag/getAll",
+                    data:{username:val},
+                    // contentType: "application/json; charset=utf-8",//(可以)
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res.data);
+                        for (let i = 0; i < res.data.length; i++) {
+                            var obj = {}
+                            obj.id = res.data[i].id
+                            obj.user_id = res.data[i].user_id
+                            obj.content = res.data[i].content
+                            obj.start_time = res.data[i].start_time
+                            obj.end_time = res.data[i].end_time
+                            obj.status = res.data[i].status == 'y' ? '已完成' : '未完成'
+                            obj.created_at = res.data[i].created_at
+                            obj.updated_at = res.data[i].updated_at
+                            obj.num = res.data[i].num
+                            obj.username = res.data[i].username
+                            data[i] = obj
+                        }
+                        _this.tableData5 = data
+                        console.log('加载时间'+(new Date() - starttime)+'毫秒');
+                    }
+                })
+            },
             handleSee(index, id) {
                 console.log(index, id);
-                window.location.href='/flag/content?flag_id='+id;
+                window.location.href = '/flag/content?flag_id=' + id;
             },
             handleEdit(index, id) {
                 console.log(index, id);
-                window.location.href='/flag/edit?flag_id='+id;
+                window.location.href = '/flag/edit?flag_id=' + id;
             },
             handleDelete(index, row) {
                 console.log(index, row);
@@ -237,31 +245,94 @@
             filterTag(value, row) {
                 return row.status === value;
             },
+            filterTag2(value, row) {
+               
+                return row.username === value;
+            },
             filterHandler(value, row, column) {
                 const property = column['property'];
                 return row[property] === value;
             },
-            changeStart (){
-                this.pickerOptionsStart = Object.assign({},this.pickerOptionsStart,{
-                disabledDate: (time) => {
-                    return time.getTime() > this.endDate
-                }
+            changeStart() {
+                this.pickerOptionsStart = Object.assign({}, this.pickerOptionsStart, {
+                    disabledDate: (time) => {
+                        return time.getTime() > this.endDate
+                    }
                 })
             },
-            changeEnd (){
-                this.pickerOptionsEnd = Object.assign({},this.pickerOptionsEnd,{
-                disabledDate: (time) => {
-                    return time.getTime() < this.startDate
+            changeEnd() {
+                this.pickerOptionsEnd = Object.assign({}, this.pickerOptionsEnd, {
+                    disabledDate: (time) => {
+                        return time.getTime() < this.startDate
+                    }
+                })
+            },
+            getTime(){
+                    let _this = this;
+                    $.ajax({
+                    type: "get",
+                    url: "/index/time",
+                    contentType: "application/json; charset=utf-8",//(可以)
+                    // dataType: "json",
+                    success: function (res) {
+                        
+                        console.log(res);
+                    
+                        _this.newdate = res
+                    }
+                });
+            },
+            handleCurrentChange(cpage) {
+					this.currpage = cpage;
+			},
+            handleSizeChange(psize) {
+                this.pagesize = psize;
+            },
+            logTimeChange(){
+                var data = [];
+                let _this = this;
+                let starttime = new Date();
+
+                // console.log(this.value);
+                var d = new Date(this.value);  
+                // + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds()
+                var time=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); 
+                // console.log(time);
+                $.ajax({
+                    type: "post",
+                    url: "/flag/timeContent",
+                    data:{nowtime:time},
+                    // contentType: "application/json; charset=utf-8",//(可以)
+                    dataType: "json",
+                    success: function (res) {
+                        console.log(res.data);
+                        for (let i = 0; i < res.data.length; i++) {
+                            var obj = {}
+                            obj.id = res.data[i].id
+                            obj.user_id = res.data[i].user_id
+                            obj.content = res.data[i].content
+                            obj.start_time = res.data[i].start_time
+                            obj.end_time = res.data[i].end_time
+                            obj.status = res.data[i].status == 'y' ? '已完成' : '未完成'
+                            obj.created_at = res.data[i].created_at
+                            obj.updated_at = res.data[i].updated_at
+                            obj.num = res.data[i].num
+                            obj.username = res.data[i].username
+                            data[i] = obj
+                        }
+                        _this.tableData5 = data
+                        console.log('加载时间'+(new Date() - starttime)+'毫秒');
                     }
                 })
             }
         },
-       
+
     }
     var Ctor = Vue.extend(Main);
     new Ctor().$mount('#app');
 
 
 </script>
+
 
 </html>

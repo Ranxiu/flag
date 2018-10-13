@@ -1,0 +1,87 @@
+.el-header,
+    .el-footer {
+        background-color: #fff;
+        color: #fff;
+        text-align: center;
+        line-height: 60px;
+    }
+
+    .el-main {
+        background-color: #F2F6FC;
+        color: #333;
+        text-align: center;
+        padding-left: 5px;
+
+    }
+    .is-background {
+        margin-top: 10px;
+    }
+    .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+        background-color: #fff;
+    }
+    .el-table {
+        float: left;
+        margin-left: 10px;
+    }
+
+    body>.el-container {
+        margin-bottom: 40px;
+
+    }
+
+    .demo-table-expand {
+        font-size: 0;
+    }
+
+    .demo-table-expand label {
+        width: 90px;
+        color: #99a9bf;
+    }
+
+    .demo-table-expand .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 50%;
+    }
+    .el-icon el-icon-arrow-right {
+        width:30px;
+        height:30px;
+    }
+    .el-icon-arrow-right:before {
+        width:30px;
+        height:30px;
+    }
+    h4>a {
+        margin:0 0;
+        font-size: 2rem;
+    }
+    .block{
+        margin-left:10px;
+        margin-bottom:10px;
+        float: left;
+        width:100%;
+    }
+    
+    #time {
+        text-align: center;
+    }
+   
+    .el-col {
+            border-radius: 4px;
+    }
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+    }
+
+    .el-button+.el-button {
+        margin-left:0px;
+        margin-top:5px;
+    }

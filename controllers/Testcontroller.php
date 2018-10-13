@@ -2,6 +2,6 @@
 namespace controllers;
 class Testcontroller{
     public function index(){
-        view('index/index');
+        view('index/demo');
     }
 }

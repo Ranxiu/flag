@@ -69,9 +69,10 @@ class Model {
         $_option = [
             'fields' => '*',
             'where' => 1,
-            'order_by' => 'id',
-            'order_way' => 'desc',
+            'order_by' => 'updated_at',
+            'order_way' => 'asc',
             'per_page' => 20,
+            'join'=> '',
         ];
         //合并用户的配置
         if($options)
@@ -85,36 +86,28 @@ class Model {
         $offset = ($page-1)*$_option['per_page'];
         
         $sql = "SELECT {$_option['fields']}
-                 FROM {$this->table}
+                 FROM {$this->table} {$_option['join']}
                  WHERE {$_option['where']} 
                  ORDER BY {$_option['order_by']} {$_option['order_way']} 
                  LIMIT $offset,{$_option['per_page']}";
 
+        // var_dump($sql);die;
+
         $stmt = $this->_db->prepare($sql);
         $stmt->execute();
         $data = $stmt->fetchAll( PDO::FETCH_ASSOC );
-
+        // echo $data; die;
+        // var_dump($data);
         /**
          * 获取总的记录数
          */
         $stmt = $this->_db->prepare("SELECT COUNT(*) FROM {$this->table} WHERE {$_option['where']}");
         $stmt->execute();
         $count = $stmt->fetch( PDO::FETCH_COLUMN );
-        $pageCount = ceil($count/$_option['per_page']);
-
-        $page_str = '';
-        if($pageCount>1)
-        {
-            for($i=1;$i<=$pageCount;$i++)
-            {
-                $page_str .= '<a href="?page='.$i.'">'.$i.'</a> ';
-            }
-        }
-        
-
+      
         return [
             'data' => $data,
-            'page' => $page_str,
+            'count' => $count,
         ];
     }
     //查询单条数据
