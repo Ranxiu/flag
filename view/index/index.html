@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <!-- import CSS -->
-    <link rel="stylesheet" href="/element-ui/index.css">
+    <!-- <link rel="stylesheet" href="/element-ui/index.css"> -->
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 </head>
 <style>
     .el-header,
@@ -59,6 +61,12 @@
         margin:0 0;
         font-size: 2rem;
     }
+    .block{
+        margin-left:10px;
+        margin-bottom:10px;
+        float: left;
+    }
+   
 </style>
 
 
@@ -85,7 +93,19 @@
                 <div id="app">
                     <el-row>
                     <el-col :span="24"><div class="grid-content bg-purple-dark">
-                              
+                    <template>
+                            <div class="block">
+                                <span class="demonstration">起始日期</span>
+                                <el-date-picker v-model="startDate" type="date" placeholder="选择日期" :picker-options="pickerOptionsStart" @change="changeEnd">
+                                </el-date-picker>
+                            </div>
+                            
+                            <div class="block">
+                                <span class="demonstration">截止日期</span>
+                                <el-date-picker v-model="endDate" type="date" placeholder="选择日期" :picker-options="pickerOptionsEnd" @change="changeStart">
+                                </el-date-picker>
+                            </div>
+                    </template>              
                     <template>
                         <el-table :data="tableData5" style="width: 100%" :default-sort="{prop: 'start_time', order: 'descending'}">
                             <el-table-column label="发起日期" width="220" sortable prop="start_time"  align="center">
@@ -148,10 +168,11 @@
 <!-- import Vue before Element -->
 <script src="/js/vue.js"></script>
 <!-- import JavaScript -->
-<script src="/element-ui/index.js"></script>
+<!-- <script src="/element-ui/index.js"></script> -->
 
 <script src="/js/jquery.min.js"></script>
-
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 
 <script>
 
@@ -159,48 +180,11 @@
         
         data() {
             return {
-                tableData5: [{
-                    date:'2019-09-29',
-                    start_time: '2019-09-29 8:00',
-                    name: '张亚泽',
-                    content: '学习前端react框架',
-                    type: '前端',
-                    end_time: '2019-09-29 21:30',
-                    tag:'已完成',
-                }, {
-                    date:'2019-09-28',
-                    start_time: '2019-09-29 8:00',
-                    name: '石学文',
-                    content: '复习php关于mvc框架',
-                    type: '后端',
-                    end_time: '2019-09-29 21:30',
-                    tag:'已完成',
-                }, {
-                    date:'2019-09-27',
-                    start_time: '2019-09-28 8:30',
-                    name: '齐福伦',
-                    content: '学习js字符串相关功能',
-                    type: '前端',
-                    end_time: '2019-09-30 21:30',
-                    tag:'未完成',
-                }, {
-                    date:'2019-09-25',
-                    start_time: '2019-09-28 8:30',
-                    name: '彭文双',
-                    content: '学习VUE关于循环方面',
-                    type: '前端',
-                    end_time: '2019-09-30 21:30',
-                    tag:'未完成',
-                }, {
-                    date:'2019-09-25',
-                    start_time: '2019-09-28 8:30',
-                    name: '彭文双',
-                    content: '学习VUE关于循环方面',
-                    type: '前端',
-                    end_time: '2019-09-30 21:30',
-                    tag:'未完成',
-                }
-                ]
+                tableData5: [],
+                pickerOptionsStart: {},
+                pickerOptionsEnd:{},
+                startDate: '',
+                endDate: '',
             }
         },
         created:function() {
@@ -243,8 +227,6 @@
             handleEdit(index, id) {
                 console.log(index, id);
                 window.location.href='/flag/edit?flag_id='+id;
-
-
             },
             handleDelete(index, row) {
                 console.log(index, row);
@@ -259,8 +241,20 @@
                 const property = column['property'];
                 return row[property] === value;
             },
-          
-
+            changeStart (){
+                this.pickerOptionsStart = Object.assign({},this.pickerOptionsStart,{
+                disabledDate: (time) => {
+                    return time.getTime() > this.endDate
+                }
+                })
+            },
+            changeEnd (){
+                this.pickerOptionsEnd = Object.assign({},this.pickerOptionsEnd,{
+                disabledDate: (time) => {
+                    return time.getTime() < this.startDate
+                    }
+                })
+            }
         },
        
     }

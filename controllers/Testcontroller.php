@@ -1,7 +1,7 @@
 <?php
 namespace controllers;
-class IndexController{
+class Testcontroller{
     public function index(){
-        view('index/demo');
+        view('index/index');
     }
 }
