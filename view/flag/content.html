@@ -44,6 +44,8 @@
                 }
                 .box .content{
                     border:2px #ccc solid;
+                    font-weight: bold;
+                    padding: 10px;
                     background-color: rgb(235, 235, 228);
                     color:#666;
                     width: 100%;
@@ -106,6 +108,9 @@
                 }
                 .box li input[type='text']{
                     width: 45%;
+                    font-weight: bold;
+                    font-size:1.5rem;
+                    padding: 5px;
                 }
             }
             @media (max-width:375px){
@@ -216,13 +221,13 @@
         <!-- <h1><?=$data['username']==$_SESSION['username']?'我':$data['username'];?>的第<?=$data['num']?>个flag</h1> -->
         <ul>
             <li>
-                <?php if($data['status']=='y'&&$data['updated_at']<=$data['end_time']): ?>
+                <!-- <?php if($data['status']=='y'&&$data['updated_at']<=$data['end_time']): ?>
                     <span style="background-color:rgb(155, 179, 101);"><?=$data['num'];?></span>
                 <?php elseif($data['status']=='y'&&$data['updated_at']>$data['end_time']): ?>
                     <span style="background-color:yellow;color:#000;"><?=$data['num'];?></span>
                 <?php else:?>
                     <span style="background-color:red;"><?=$data['num'];?></span>
-                <?php endif;?>
+                <?php endif;?> -->
                 <div class="content">
                     <?=$data['content'];?>
                 </div>
@@ -230,7 +235,7 @@
                 要求完成时间段：
                 <br><br>
                 <input type="text" class="start" value="<?=$data['start_time'];?>" disabled>-
-                <input type="text" class="end" value="<?=$data['start_time'];?>" disabled>
+                <input type="text" class="end" value="<?=$data['end_time'];?>" disabled>
                 <br><br>
                 状态：
                 <input type="radio" checked>

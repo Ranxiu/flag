@@ -18,7 +18,7 @@ class Db
         {
             
             // 连接数据库
-            $this->_pdo = new \PDO('mysql:host=localhost;dbname=flag', 'root', '573511');
+            $this->_pdo = new \PDO('mysql:host=127.0.0.1;dbname=flag', 'root', '041646');
             $this->_pdo->exec('SET NAMES utf8');
         }
 
